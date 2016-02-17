@@ -1,8 +1,14 @@
 package com.kma.ais_dekanat_desktop_ui;
 
+import com.kma.ais_dekanat_desktop_ui.controller.CathedraListController;
+import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
+import com.kma.ais_dekanat_desktop_ui.model.Department;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -19,9 +25,10 @@ public class DekanatRunner extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("ais_dekanat_desktop_ui");
 
         initRootLayout();
+        showCathedraList();
     }
 
     private void initRootLayout() {
@@ -38,6 +45,39 @@ public class DekanatRunner extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void showCathedraList() {
+        try {
+            // Load cathedra view.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DekanatRunner.class.getResource("/view/cathedraList.fxml"));
+            AnchorPane cathedraList = (AnchorPane) loader.load();
+
+            // Set cathedra view into the center of root layout.
+            rootLayout.setCenter(cathedraList);
+
+            // Give the controller access to the dekanat app.
+            CathedraListController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ObservableList<Cathedra> getCathedraData() {
+        ObservableList<Cathedra> cathedraData = FXCollections.observableArrayList();
+        cathedraData.add(new Cathedra(1, "Кафедра математики"));
+        cathedraData.add(new Cathedra(2, "Кафедра мультимедійних систем"));
+        return cathedraData;
+    }
+
+    public ObservableList<Department> getDekanatData() {
+        ObservableList<Department> cathedraData = FXCollections.observableArrayList();
+        cathedraData.add(new Department(1, "Факультет Інформатики", "IT"));
+        cathedraData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
+        return cathedraData;
     }
 }
 
