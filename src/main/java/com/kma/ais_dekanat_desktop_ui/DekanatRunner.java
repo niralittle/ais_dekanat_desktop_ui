@@ -36,7 +36,7 @@ public class DekanatRunner extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("view/rootLayout.fxml"));
+            loader.setLocation(DekanatRunner.class.getResource("/view/rootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -52,7 +52,7 @@ public class DekanatRunner extends Application {
         try {
             // Load cathedra view.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("view/cathedraList.fxml"));
+            loader.setLocation(DekanatRunner.class.getResource("/view/cathedraList.fxml"));
             AnchorPane cathedraList = (AnchorPane) loader.load();
 
             // Set cathedra view into the center of root layout.
