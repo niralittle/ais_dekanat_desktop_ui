@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="296.0" prefWidth="596.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kma.ais_dekanat_desktop_ui.controller.DepartmentController">
+   <children>
+      <SplitPane dividerPositions="0.3164983164983165" prefHeight="296.0" prefWidth="596.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="departmentTable" prefHeight="294.0" prefWidth="184.0">
+                    <columns>
+                      <TableColumn fx:id="idColumn" prefWidth="91.0" text="id" />
+                      <TableColumn fx:id="nameColumn" prefWidth="93.0" text="Name" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <GridPane layoutX="1.0" layoutY="-1.0" prefHeight="258.0" prefWidth="402.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="116.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="286.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="222.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Name" />
+                        <Label fx:id="mainInfoLabel" alignment="TOP_LEFT" text="Main info" GridPane.rowIndex="1" />
+                        <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" />
+                        <TextArea fx:id="mainInfo" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Button fx:id="newDepartment" layoutX="194.0" layoutY="257.0" mnemonicParsing="false" text="New..." />
+                  <Button fx:id="editDepartment" layoutX="268.0" layoutY="257.0" mnemonicParsing="false" text="Edit..." />
+                  <Button fx:id="deleteDepartment" layoutX="336.0" layoutY="257.0" mnemonicParsing="false" text="Delete" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

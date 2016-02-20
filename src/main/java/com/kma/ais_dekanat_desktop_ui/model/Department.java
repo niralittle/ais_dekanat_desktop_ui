@@ -19,7 +19,7 @@ public class Department {
         this.mainInfo =new SimpleStringProperty(mainInfo);
     }
 
-    public int getDepartmentId() {
+    public Integer getDepartmentId() {
         return departmentId.get();
     }
 

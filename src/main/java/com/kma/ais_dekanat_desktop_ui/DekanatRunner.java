@@ -1,6 +1,7 @@
 package com.kma.ais_dekanat_desktop_ui;
 
 import com.kma.ais_dekanat_desktop_ui.controller.CathedraListController;
+import com.kma.ais_dekanat_desktop_ui.controller.DepartmentController;
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
 import javafx.application.Application;
@@ -29,7 +30,7 @@ public class DekanatRunner extends Application {
 
         initRootLayout();
         showCathedraList();
-
+        //loadDepartmentStage();
     }
 
     private void initRootLayout() {
@@ -67,6 +68,25 @@ public class DekanatRunner extends Application {
         }
     }
 
+    public void loadDepartmentStage(){
+        try {
+            // Load cathedra view.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DekanatRunner.class.getResource("/view/departmentLayout.fxml"));
+            AnchorPane departmentPane = loader.load();
+
+            // Set cathedra view into the center of root layout.
+            rootLayout.setCenter(departmentPane);
+
+            // Give the controller access to the dekanat app.
+            DepartmentController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ObservableList<Cathedra> getCathedraData() {
         ObservableList<Cathedra> cathedraData = FXCollections.observableArrayList();
         cathedraData.add(new Cathedra(1, "Кафедра математики"));
@@ -76,7 +96,7 @@ public class DekanatRunner extends Application {
 
     public ObservableList<Department> getDekanatData() {
         ObservableList<Department> cathedraData = FXCollections.observableArrayList();
-        cathedraData.add(new Department(1, "Факультет Інформатики", "IT"));
+        cathedraData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
         cathedraData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
         return cathedraData;
     }
