@@ -3,8 +3,10 @@ package com.kma.ais_dekanat_desktop_ui;
 import com.kma.ais_dekanat_desktop_ui.controller.CathedraListController;
 import com.kma.ais_dekanat_desktop_ui.controller.DepartmentController;
 import com.kma.ais_dekanat_desktop_ui.controller.EditDepartmentController;
+import com.kma.ais_dekanat_desktop_ui.controller.ProfessorsController;
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
+import com.kma.ais_dekanat_desktop_ui.model.Professor;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,6 +23,8 @@ import java.io.IOException;
 public class DekanatRunner extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
+    public ObservableList<Professor> proffesorData;
+    public ObservableList<Cathedra> cathedraData;
 
     public static void main(String[] args) {
         launch(args);
@@ -117,9 +122,21 @@ public class DekanatRunner extends Application {
             return false;
         }
     }
-
+    public void loadProfessorStage(String catherdaName){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DekanatRunner.class.getResource("/view/professorLayout.fxml"));
+            VBox proofessorPane = loader.load();
+            rootLayout.setCenter(proofessorPane);
+            ProfessorsController controller = loader.getController();
+            controller.cathedraName=catherdaName;
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public ObservableList<Cathedra> getCathedraData() {
-        ObservableList<Cathedra> cathedraData = FXCollections.observableArrayList();
+        cathedraData = FXCollections.observableArrayList();
         cathedraData.add(new Cathedra(1, "Кафедра математики"));
         cathedraData.add(new Cathedra(2, "Кафедра мультимедійних систем"));
         return cathedraData;
@@ -130,6 +147,13 @@ public class DekanatRunner extends Application {
         cathedraData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
         cathedraData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
         return cathedraData;
+    }
+    public ObservableList<Professor> getProfessorData() {
+        proffesorData = FXCollections.observableArrayList();
+        proffesorData.add(new Professor(1,"Jon","lector",1));
+        proffesorData.add(new Professor(2, "Ivan", "lector",1));
+        proffesorData.add(new Professor(2, "Maria", "teacher",1));
+        return proffesorData;
     }
 }
 

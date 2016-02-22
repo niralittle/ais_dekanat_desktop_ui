@@ -6,9 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Cathedra {
-    private IntegerProperty cathedraId;
-    private StringProperty name;
-    private Department department;
+    private IntegerProperty cathedraId=new SimpleIntegerProperty();
+    private StringProperty name = new SimpleStringProperty();
+    private Department department=new Department();
    // private Set<Professor> professors;
 
 

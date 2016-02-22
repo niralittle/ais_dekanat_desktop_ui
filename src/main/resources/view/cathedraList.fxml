@@ -35,11 +35,19 @@
                            </GridPane.margin></Label><Label text="Professor" GridPane.rowIndex="1" /><Label fx:id="ProfessorLabel" text="Label" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
-                    <HBox layoutX="215.0" layoutY="259.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                        <children><Button layoutX="112.1875" layoutY="259.0" mnemonicParsing="false" text="New..." /><Button layoutX="167.0" layoutY="259.0" mnemonicParsing="false" text="Edit..." /><Button layoutX="221.0" layoutY="259.0" mnemonicParsing="false" text="Delete" />
+                    <HBox layoutX="215.0" layoutY="259.0" prefHeight="25.0" prefWidth="165.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <children><Button fx:id="newCathedraBtn" layoutX="112.1875" layoutY="259.0" mnemonicParsing="false" onAction="#actionButtonPressed" prefHeight="25.0" prefWidth="54.0" text="New..." /><Button fx:id="editCathedraBtn" layoutX="167.0" layoutY="259.0" mnemonicParsing="false" onAction="#actionButtonPressed" text="Edit..." /><Button fx:id="deleteCathedraBtn" layoutX="221.0" layoutY="259.0" mnemonicParsing="false" onAction="#actionButtonPressed" text="Delete" />
                         </children>
                     </HBox>
                   <ComboBox fx:id="departmentComboBox" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="130.0" promptText="Department" AnchorPane.leftAnchor="14.0" />
+                  <HBox layoutY="265.0" prefHeight="42.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#showProfessors" prefHeight="25.0" prefWidth="127.0" text="Professors list" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </HBox>
                 </children></AnchorPane>
         </items>
     </SplitPane>
