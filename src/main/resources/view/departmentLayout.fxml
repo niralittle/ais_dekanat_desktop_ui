@@ -32,12 +32,12 @@
                      <children>
                         <Label text="Name" />
                         <Label fx:id="mainInfoLabel" alignment="TOP_LEFT" text="Main info" GridPane.rowIndex="1" />
-                        <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" />
                         <TextArea fx:id="mainInfo" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <Button fx:id="newDepartment" layoutX="194.0" layoutY="257.0" mnemonicParsing="false" text="New..." />
-                  <Button fx:id="editDepartment" layoutX="268.0" layoutY="257.0" mnemonicParsing="false" text="Edit..." />
+                  <Button fx:id="newDepartment" layoutX="194.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleNewDepartment" text="New..." />
+                  <Button fx:id="editDepartment" layoutX="268.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleEditDepartment" text="Edit..." />
                   <Button fx:id="deleteDepartment" layoutX="336.0" layoutY="257.0" mnemonicParsing="false" text="Delete" />
                </children></AnchorPane>
         </items>

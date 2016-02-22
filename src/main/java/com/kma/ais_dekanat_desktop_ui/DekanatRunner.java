@@ -2,6 +2,7 @@ package com.kma.ais_dekanat_desktop_ui;
 
 import com.kma.ais_dekanat_desktop_ui.controller.CathedraListController;
 import com.kma.ais_dekanat_desktop_ui.controller.DepartmentController;
+import com.kma.ais_dekanat_desktop_ui.controller.EditDepartmentController;
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
 import javafx.application.Application;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -84,6 +86,35 @@ public class DekanatRunner extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean showDepartmentEditDialog(Department department) {
+        try {
+            // Load the fxml file and create a new stage for the popup
+            FXMLLoader loader = new FXMLLoader(DekanatRunner.class.getResource("/view/departmentEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit/Create department");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller
+            EditDepartmentController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setDepartment(department);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        } catch (IOException e) {
+            // Exception gets thrown if the fxml file could not be loaded
+            e.printStackTrace();
+            return false;
         }
     }
 

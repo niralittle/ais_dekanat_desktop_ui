@@ -11,6 +11,9 @@ public class Department {
     private StringProperty mainInfo;
 
     public Department() {
+        this.departmentId = new SimpleIntegerProperty();
+        this.name =new SimpleStringProperty();
+        this.mainInfo =new SimpleStringProperty();
     }
 
     public Department(Integer departmentId, String name, String mainInfo) {
