@@ -162,7 +162,7 @@ public class StudentController {
 
         // Add observable list data to the table
         studnetTableView.setItems(dekanatRunner.getStudentData());
-        departmentStudComboBox.setItems(dekanatRunner.getDekanatData());
+        departmentStudComboBox.setItems(dekanatRunner.getDepartmentData());
         courseComboBox.setItems(dekanatRunner.getCourseData());
     }
 }

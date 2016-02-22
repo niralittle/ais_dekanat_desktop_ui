@@ -134,7 +134,7 @@ public class CathedraListController {
 
         // Add observable list data to the table
         cathedraTable.setItems(dekanatRunner.getCathedraData());
-        departmentComboBox.setItems(dekanatRunner.getDekanatData());
+        departmentComboBox.setItems(dekanatRunner.getDepartmentData());
     }
     public void actionButtonPressed(ActionEvent actionEvent ) {
         Object sourse = actionEvent.getSource();

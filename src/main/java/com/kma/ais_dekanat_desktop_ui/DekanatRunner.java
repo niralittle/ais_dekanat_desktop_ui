@@ -48,7 +48,8 @@ public class DekanatRunner extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(DekanatRunner.class.getResource("/view/rootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-
+            MenuController menuController = loader.getController();
+            menuController.setMainApp(this);
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -195,13 +196,6 @@ public class DekanatRunner extends Application {
         return cathedraData;
     }
 
-    public ObservableList<Department> getDekanatData() {
-        ObservableList<Department> cathedraData = FXCollections.observableArrayList();
-        cathedraData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
-        cathedraData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
-        return cathedraData;
-    }
-
     public ObservableList<Student> getStudentData() {
         ObservableList<Student> studentData = FXCollections.observableArrayList();
         studentData.add(new Student("Hans", "Muster"));
@@ -215,6 +209,7 @@ public class DekanatRunner extends Application {
         studentData.add(new Student("Martin", "Mueller"));
         return studentData;
     }
+
     public ObservableList<Professor> getProfessorData() {
         proffesorData = FXCollections.observableArrayList();
         proffesorData.add(new Professor(1,"Jon","lector",1));
