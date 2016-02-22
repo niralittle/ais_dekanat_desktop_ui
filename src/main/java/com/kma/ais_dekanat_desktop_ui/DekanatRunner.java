@@ -25,6 +25,7 @@ public class DekanatRunner extends Application {
     private BorderPane rootLayout;
     public ObservableList<Professor> proffesorData;
     public ObservableList<Cathedra> cathedraData;
+    private ObservableList<Department> departmentData;
 
     public static void main(String[] args) {
         launch(args);
@@ -76,6 +77,7 @@ public class DekanatRunner extends Application {
     }
 
     public void loadDepartmentStage(){
+        fillDepartmentData();
         try {
             // Load cathedra view.
             FXMLLoader loader = new FXMLLoader();
@@ -122,6 +124,7 @@ public class DekanatRunner extends Application {
             return false;
         }
     }
+
     public void loadProfessorStage(String catherdaName){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -135,19 +138,24 @@ public class DekanatRunner extends Application {
             e.printStackTrace();
         }
     }
+
     public ObservableList<Cathedra> getCathedraData() {
-        cathedraData = FXCollections.observableArrayList();
+        ObservableList<Cathedra> cathedraData = FXCollections.observableArrayList();
         cathedraData.add(new Cathedra(1, "Кафедра математики"));
         cathedraData.add(new Cathedra(2, "Кафедра мультимедійних систем"));
         return cathedraData;
     }
 
-    public ObservableList<Department> getDekanatData() {
-        ObservableList<Department> cathedraData = FXCollections.observableArrayList();
-        cathedraData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
-        cathedraData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
-        return cathedraData;
+    private void fillDepartmentData(){
+        departmentData = FXCollections.observableArrayList();
+        departmentData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
+        departmentData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
     }
+
+    public ObservableList<Department> getDepartmentData() {
+        return departmentData;
+    }
+
     public ObservableList<Professor> getProfessorData() {
         proffesorData = FXCollections.observableArrayList();
         proffesorData.add(new Professor(1,"Jon","lector",1));

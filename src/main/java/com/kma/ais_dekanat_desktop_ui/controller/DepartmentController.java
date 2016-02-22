@@ -1,14 +1,10 @@
 package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
-import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
-import com.sun.org.apache.xpath.internal.operations.Number;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-import javafx.scene.text.Text;
-import sun.font.TextLabel;
 
 /**
  * Created by denysburlakov on 20.02.16.
@@ -85,9 +81,9 @@ public class DepartmentController {
         Department tempDepartment = new Department();
         boolean okClicked = dekanatRunner.showDepartmentEditDialog(tempDepartment);
         if (okClicked) {
-            //System.out.println(dekanatRunner.getDekanatData().size());
-            dekanatRunner.getDekanatData().add(tempDepartment);
-            //System.out.println(dekanatRunner.getDekanatData().size());
+            //System.out.println(dekanatRunner.getDepartmentData().size());
+            dekanatRunner.getDepartmentData().add(tempDepartment);
+            //System.out.println(dekanatRunner.getDepartmentData().size());
             refreshDepartmentTable();
             showDepartmentDetails(tempDepartment);
         }
@@ -116,7 +112,7 @@ public class DepartmentController {
         int selectedIndex = departmentTable.getSelectionModel().getSelectedIndex();
         departmentTable.setItems(null);
         departmentTable.layout();
-        departmentTable.setItems(dekanatRunner.getDekanatData());
+        departmentTable.setItems(dekanatRunner.getDepartmentData());
         // Must set the selected index again (see http://javafx-jira.kenai.com/browse/RT-26291)
         departmentTable.getSelectionModel().select(selectedIndex);
         */
@@ -127,7 +123,7 @@ public class DepartmentController {
     public void setMainApp(DekanatRunner dekanatRunner) {
         this.dekanatRunner = dekanatRunner;
         // Add observable list data to the table
-        departmentTable.setItems(dekanatRunner.getDekanatData());
-        //departmentComboBox.setItems(dekanatRunner.getDekanatData());
+        departmentTable.setItems(dekanatRunner.getDepartmentData());
+        //departmentComboBox.setItems(dekanatRunner.getDepartmentData());
     }
 }
