@@ -3,7 +3,6 @@ package com.kma.ais_dekanat_desktop_ui.controller;
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
-import com.kma.ais_dekanat_desktop_ui.model.Professor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.StringConverter;
+
 import java.io.IOException;
 
 public class CathedraListController {
@@ -57,7 +57,9 @@ public class CathedraListController {
             });
             return row;
         });
+        initLoaders();
     }
+
 
     private void comboBoxManage() {
         departmentComboBox.setCellFactory((comboBox) -> {
@@ -105,10 +107,10 @@ public class CathedraListController {
                 cathedraTable.getColumns().get(0).setVisible(false);
                 cathedraTable.getColumns().get(0).setVisible(true);
                 idColumn.setCellValueFactory(cellData -> null);
-                nameColumn.setCellValueFactory(cellData -> null);
+               nameColumn.setCellValueFactory(cellData -> null);
             }
         });
-        initLoaders();
+
     }
     private void initLoaders() {
         try {
@@ -132,7 +134,7 @@ public class CathedraListController {
 
         // Add observable list data to the table
         cathedraTable.setItems(dekanatRunner.getCathedraData());
-        departmentComboBox.setItems(dekanatRunner.getDepartmentData());
+        departmentComboBox.setItems(dekanatRunner.getDekanatData());
     }
     public void actionButtonPressed(ActionEvent actionEvent ) {
         Object sourse = actionEvent.getSource();

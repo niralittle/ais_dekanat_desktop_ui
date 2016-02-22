@@ -1,12 +1,10 @@
 package com.kma.ais_dekanat_desktop_ui;
 
-import com.kma.ais_dekanat_desktop_ui.controller.CathedraListController;
-import com.kma.ais_dekanat_desktop_ui.controller.DepartmentController;
-import com.kma.ais_dekanat_desktop_ui.controller.EditDepartmentController;
-import com.kma.ais_dekanat_desktop_ui.controller.ProfessorsController;
+import com.kma.ais_dekanat_desktop_ui.controller.*;
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
 import com.kma.ais_dekanat_desktop_ui.model.Professor;
+import com.kma.ais_dekanat_desktop_ui.model.Student;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +36,10 @@ public class DekanatRunner extends Application {
 
         initRootLayout();
         showCathedraList();
-        //loadDepartmentStage();
+        showStudentList();
+        //   loadDepartmentStage();
+       // loadDepartmentStage();
+
     }
 
     private void initRootLayout() {
@@ -59,12 +60,12 @@ public class DekanatRunner extends Application {
 
     public void showCathedraList() {
         try {
-            // Load cathedra view.
+            // Load cathedra com.kma.ais_dekanat_desktop_ui.view.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(DekanatRunner.class.getResource("/view/cathedraList.fxml"));
             AnchorPane cathedraList = (AnchorPane) loader.load();
 
-            // Set cathedra view into the center of root layout.
+            // Set cathedra com.kma.ais_dekanat_desktop_ui.view into the center of root layout.
             rootLayout.setCenter(cathedraList);
 
             // Give the controller access to the dekanat app.
@@ -76,19 +77,18 @@ public class DekanatRunner extends Application {
         }
     }
 
-    public void loadDepartmentStage(){
-        fillDepartmentData();
+    public void showStudentList() {
         try {
-            // Load cathedra view.
+            // Load cathedra com.kma.ais_dekanat_desktop_ui.view.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("/view/departmentLayout.fxml"));
-            AnchorPane departmentPane = loader.load();
+            loader.setLocation(DekanatRunner.class.getResource("/view/studentList.fxml"));
+            AnchorPane studentList = (AnchorPane) loader.load();
 
-            // Set cathedra view into the center of root layout.
-            rootLayout.setCenter(departmentPane);
+            // Set cathedra com.kma.ais_dekanat_desktop_ui.view into the center of root layout.
+            rootLayout.setCenter(studentList);
 
             // Give the controller access to the dekanat app.
-            DepartmentController controller = loader.getController();
+            StudentController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -96,6 +96,35 @@ public class DekanatRunner extends Application {
         }
     }
 
+    public boolean showStudentEditDialog(Student student) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DekanatRunner.class.getResource("/view/student_edit_dialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Student");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the student into the controller.
+            StudentEditDialog controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setStudent(student);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public boolean showDepartmentEditDialog(Department department) {
         try {
             // Load the fxml file and create a new stage for the popup
@@ -138,6 +167,26 @@ public class DekanatRunner extends Application {
             e.printStackTrace();
         }
     }
+    public void loadDepartmentStage() {
+        fillDepartmentData();
+        try {
+            // Load cathedra view.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DekanatRunner.class.getResource("/view/departmentLayout.fxml"));
+            AnchorPane departmentPane = loader.load();
+
+            // Set cathedra view into the center of root layout.
+            rootLayout.setCenter(departmentPane);
+
+            // Give the controller access to the dekanat app.
+            DepartmentController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public ObservableList<Cathedra> getCathedraData() {
         ObservableList<Cathedra> cathedraData = FXCollections.observableArrayList();
@@ -146,6 +195,33 @@ public class DekanatRunner extends Application {
         return cathedraData;
     }
 
+    public ObservableList<Department> getDekanatData() {
+        ObservableList<Department> cathedraData = FXCollections.observableArrayList();
+        cathedraData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
+        cathedraData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
+        return cathedraData;
+    }
+
+    public ObservableList<Student> getStudentData() {
+        ObservableList<Student> studentData = FXCollections.observableArrayList();
+        studentData.add(new Student("Hans", "Muster"));
+        studentData.add(new Student("Ruth", "Mueller"));
+        studentData.add(new Student("Heinz", "Kurz"));
+        studentData.add(new Student("Cornelia", "Meier"));
+        studentData.add(new Student("Werner", "Meyer"));
+        studentData.add(new Student("Lydia", "Kunz"));
+        studentData.add(new Student("Anna", "Best"));
+        studentData.add(new Student("Stefan", "Meier"));
+        studentData.add(new Student("Martin", "Mueller"));
+        return studentData;
+    }
+    public ObservableList<Professor> getProfessorData() {
+        proffesorData = FXCollections.observableArrayList();
+        proffesorData.add(new Professor(1,"Jon","lector",1));
+        proffesorData.add(new Professor(2, "Ivan", "lector",1));
+        proffesorData.add(new Professor(2, "Maria", "teacher",1));
+        return proffesorData;
+    }
     private void fillDepartmentData(){
         departmentData = FXCollections.observableArrayList();
         departmentData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
@@ -156,12 +232,13 @@ public class DekanatRunner extends Application {
         return departmentData;
     }
 
-    public ObservableList<Professor> getProfessorData() {
-        proffesorData = FXCollections.observableArrayList();
-        proffesorData.add(new Professor(1,"Jon","lector",1));
-        proffesorData.add(new Professor(2, "Ivan", "lector",1));
-        proffesorData.add(new Professor(2, "Maria", "teacher",1));
-        return proffesorData;
+    public ObservableList<String> getCourseData() {
+        ObservableList<String> courseData = FXCollections.observableArrayList();
+        courseData.add(new String("1"));
+        courseData.add(new String("2"));
+        courseData.add(new String("3"));
+        courseData.add(new String("4"));
+        return courseData;
     }
 }
 
