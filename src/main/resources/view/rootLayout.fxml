@@ -10,6 +10,7 @@
             <Menu mnemonicParsing="false" text="File">
                 <items>
                   <MenuItem mnemonicParsing="false" onAction="#openDepartments" text="Open departments" />
+                  <MenuItem mnemonicParsing="false" onAction="#openStudents" text="Open students" />
                   <MenuItem mnemonicParsing="false" onAction="#openCathedras" text="Open catherdas" />
                     <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
                 </items>

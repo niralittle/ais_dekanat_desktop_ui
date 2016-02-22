@@ -35,10 +35,7 @@ public class DekanatRunner extends Application {
         this.primaryStage.setTitle("ais_dekanat_desktop_ui");
 
         initRootLayout();
-        showCathedraList();
-        //showStudentList();
-        //   loadDepartmentStage();
-       // loadDepartmentStage();
+        loadDepartmentStage();
 
     }
 
@@ -218,7 +215,7 @@ public class DekanatRunner extends Application {
         proffesorData.add(new Professor(2, "Maria", "teacher",1));
         return proffesorData;
     }
-    private void fillDepartmentData(){
+    public void fillDepartmentData(){
         departmentData = FXCollections.observableArrayList();
         departmentData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
         departmentData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));

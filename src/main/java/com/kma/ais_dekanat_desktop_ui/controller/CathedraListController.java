@@ -133,6 +133,7 @@ public class CathedraListController {
         this.dekanatRunner = dekanatRunner;
 
         // Add observable list data to the table
+        dekanatRunner.fillDepartmentData();
         cathedraTable.setItems(dekanatRunner.getCathedraData());
         departmentComboBox.setItems(dekanatRunner.getDepartmentData());
     }

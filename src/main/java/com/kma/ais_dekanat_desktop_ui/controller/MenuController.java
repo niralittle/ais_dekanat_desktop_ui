@@ -23,10 +23,10 @@ public class MenuController {
         dekanatRunner.loadDepartmentStage();
     }
 
-//    @FXML
-//    public void openProfessors(){
-//        dekanatRunner.loadProfessorStage();
-//    }
+    @FXML
+    public void openStudents(){
+        dekanatRunner.showStudentList();
+    }
 
     public void setMainApp(DekanatRunner dekanatRunner){
         this.dekanatRunner = dekanatRunner;
