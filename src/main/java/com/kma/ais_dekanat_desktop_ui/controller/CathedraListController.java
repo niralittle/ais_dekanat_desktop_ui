@@ -174,7 +174,8 @@ public class CathedraListController {
 
 
     public void showProfessors(ActionEvent actionEvent ) {
-        Cathedra selectedCathedra = (Cathedra) cathedraTable.getSelectionModel().getSelectedItem();
-        dekanatRunner.loadProfessorStage(selectedCathedra.getName().toString());
+        if(cathedraTable.getSelectionModel().getSelectedItem()!=null){
+            dekanatRunner.loadProfessorStage(cathedraTable.getSelectionModel().getSelectedItem().getName().toString());
+        }
     }
 }

@@ -36,7 +36,7 @@ public class DekanatRunner extends Application {
 
         initRootLayout();
         showCathedraList();
-        showStudentList();
+        //showStudentList();
         //   loadDepartmentStage();
        // loadDepartmentStage();
 
