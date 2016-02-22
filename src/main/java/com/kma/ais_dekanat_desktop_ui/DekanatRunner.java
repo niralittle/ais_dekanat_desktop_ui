@@ -60,6 +60,7 @@ public class DekanatRunner extends Application {
     }
 
     public void showCathedraList() {
+        fillDepartmentData();
         try {
             // Load cathedra com.kma.ais_dekanat_desktop_ui.view.
             FXMLLoader loader = new FXMLLoader();
