@@ -1,10 +1,7 @@
 package com.kma.ais_dekanat_desktop_ui;
 
 import com.kma.ais_dekanat_desktop_ui.controller.*;
-import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
-import com.kma.ais_dekanat_desktop_ui.model.Department;
-import com.kma.ais_dekanat_desktop_ui.model.Professor;
-import com.kma.ais_dekanat_desktop_ui.model.Student;
+import com.kma.ais_dekanat_desktop_ui.model.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,29 +23,36 @@ public class DekanatRunner extends Application {
     public ObservableList<Cathedra> cathedraData;
     private ObservableList<Department> departmentData;
 
-    public static void main(String[] args) {
-        launch(args);
+    private static User user;
+    private static DekanatRunner instance;
+
+    public static DekanatRunner getInstance() {
+        return instance;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        instance = this;
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("ais_dekanat_desktop_ui");
+        this.primaryStage.setTitle("Автоматизована інформаційна система \"Деканат\"");
 
         initRootLayout();
-        loadDepartmentStage();
+        promptLoginForm();
+    }
 
+    public void postLogin(User authenticated) {
+        user = authenticated;
+        loadDepartmentStage();
     }
 
     private void initRootLayout() {
         try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("/view/rootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
-            MenuController menuController = loader.getController();
-            menuController.setMainApp(this);
-            // Show the scene containing the root layout.
+            FXMLLoader loader = newLoader("rootLayout.fxml");
+            rootLayout = loader.load();
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -59,18 +64,21 @@ public class DekanatRunner extends Application {
     public void showCathedraList() {
         fillDepartmentData();
         try {
-            // Load cathedra com.kma.ais_dekanat_desktop_ui.view.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("/view/cathedraList.fxml"));
-            AnchorPane cathedraList = (AnchorPane) loader.load();
-
-            // Set cathedra com.kma.ais_dekanat_desktop_ui.view into the center of root layout.
-            rootLayout.setCenter(cathedraList);
-
-            // Give the controller access to the dekanat app.
+            FXMLLoader loader = newLoader("cathedraList.fxml");
+            rootLayout.setCenter(loader.load());
             CathedraListController controller = loader.getController();
-            controller.setMainApp(this);
+            controller.setMainApp();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void promptLoginForm() {
+        try {
+            FXMLLoader loader = newLoader("loginForm.fxml");
+            Pane cathedraList = loader.load();
+            rootLayout.setCenter(cathedraList);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,15 +86,11 @@ public class DekanatRunner extends Application {
 
     public void showStudentList() {
         try {
-            // Load cathedra com.kma.ais_dekanat_desktop_ui.view.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("/view/studentList.fxml"));
-            AnchorPane studentList = (AnchorPane) loader.load();
+            FXMLLoader loader = newLoader("studentList.fxml");
+            AnchorPane studentList = loader.load();
 
-            // Set cathedra com.kma.ais_dekanat_desktop_ui.view into the center of root layout.
             rootLayout.setCenter(studentList);
 
-            // Give the controller access to the dekanat app.
             StudentController controller = loader.getController();
             controller.setMainApp(this);
 
@@ -97,12 +101,9 @@ public class DekanatRunner extends Application {
 
     public boolean showStudentEditDialog(Student student) {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("/view/student_edit_dialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            FXMLLoader loader = newLoader("student_edit_dialog.fxml");
+            AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Student");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -110,12 +111,10 @@ public class DekanatRunner extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the student into the controller.
             StudentEditDialog controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setStudent(student);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
@@ -126,9 +125,8 @@ public class DekanatRunner extends Application {
     }
     public boolean showDepartmentEditDialog(Department department) {
         try {
-            // Load the fxml file and create a new stage for the popup
-            FXMLLoader loader = new FXMLLoader(DekanatRunner.class.getResource("/view/departmentEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            FXMLLoader loader = newLoader("departmentEditDialog.fxml");
+            AnchorPane page = loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit/Create department");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -136,48 +134,41 @@ public class DekanatRunner extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller
             EditDepartmentController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setDepartment(department);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
 
         } catch (IOException e) {
-            // Exception gets thrown if the fxml file could not be loaded
             e.printStackTrace();
             return false;
         }
     }
 
-    public void loadProfessorStage(String catherdaName){
+    public void loadProfessorStage(String cathedraName){
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("/view/professorLayout.fxml"));
-            VBox proofessorPane = loader.load();
-            rootLayout.setCenter(proofessorPane);
+            FXMLLoader loader = newLoader("professorLayout.fxml");
+            VBox professorPane = loader.load();
+            rootLayout.setCenter(professorPane);
             ProfessorsController controller = loader.getController();
-            controller.cathedraName=catherdaName;
+            controller.cathedraName=cathedraName;
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public void loadDepartmentStage() {
         fillDepartmentData();
         try {
-            // Load cathedra view.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DekanatRunner.class.getResource("/view/departmentLayout.fxml"));
+            FXMLLoader loader = newLoader("departmentLayout.fxml");
             AnchorPane departmentPane = loader.load();
 
-            // Set cathedra view into the center of root layout.
             rootLayout.setCenter(departmentPane);
 
-            // Give the controller access to the dekanat app.
             DepartmentController controller = loader.getController();
             controller.setMainApp(this);
 
@@ -227,11 +218,31 @@ public class DekanatRunner extends Application {
 
     public ObservableList<String> getCourseData() {
         ObservableList<String> courseData = FXCollections.observableArrayList();
-        courseData.add(new String("1"));
-        courseData.add(new String("2"));
-        courseData.add(new String("3"));
-        courseData.add(new String("4"));
+        courseData.add("1");
+        courseData.add("2");
+        courseData.add("3");
+        courseData.add("4");
         return courseData;
     }
+
+    public void showAddClassForm() {
+        try {
+            FXMLLoader loader = newLoader("addClass.fxml");
+            rootLayout.setCenter(loader.load());
+            ClassesFormController controller = loader.getController();
+            controller.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private FXMLLoader newLoader(String filename) {
+        return new FXMLLoader(this.getClass().getResource("/view/" + filename));
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
 

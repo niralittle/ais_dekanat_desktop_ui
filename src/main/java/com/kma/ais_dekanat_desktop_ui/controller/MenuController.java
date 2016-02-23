@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
  * Created by denysburlakov on 22.02.16.
  */
 public class MenuController {
-    DekanatRunner dekanatRunner;
     @FXML
     public void close(){
         System.exit(0);
@@ -15,20 +14,22 @@ public class MenuController {
 
     @FXML
     public void openCathedras(){
-        dekanatRunner.showCathedraList();
+        DekanatRunner.getInstance().showCathedraList();
     }
 
     @FXML
     public void openDepartments(){
-        dekanatRunner.loadDepartmentStage();
+        DekanatRunner.getInstance().loadDepartmentStage();
     }
 
     @FXML
-    public void openStudents(){
-        dekanatRunner.showStudentList();
+    public void openStudents() {
+        DekanatRunner.getInstance().showStudentList();
     }
 
-    public void setMainApp(DekanatRunner dekanatRunner){
-        this.dekanatRunner = dekanatRunner;
+    @FXML
+    public void openAddClass() {
+        DekanatRunner.getInstance().showAddClassForm();
     }
+
 }

@@ -35,15 +35,12 @@ public class CathedraListController {
     private Parent fxmlEdit;
     private FXMLLoader fxmlLoader = new FXMLLoader();
     private CathedraEditController cathedraEditController;
-    private DekanatRunner dekanatRunner;
 
     public CathedraListController() {
     }
 
     @FXML
     private void initialize() {
-
-        // Initialize the cathedra table with the two columns.
         comboBoxManage();
         cathedraTable.setRowFactory(tv -> {
             TableRow<Cathedra> row = new TableRow<>();
@@ -112,6 +109,7 @@ public class CathedraListController {
         });
 
     }
+
     private void initLoaders() {
         try {
             fxmlLoader.setLocation(getClass().getResource("/view/cathedraEdit.fxml"));
@@ -121,6 +119,7 @@ public class CathedraListController {
             e.printStackTrace();
         }
     }
+
     public void setLabels(Cathedra cathedra) {
         NameLabel.setText(cathedra.getName());
         ProfessorLabel.setText("" + cathedra.getCathedraId());
@@ -129,37 +128,37 @@ public class CathedraListController {
     /**
      * Is called by the main application to give a reference back to itself.
      */
-    public void setMainApp(DekanatRunner dekanatRunner) {
-        this.dekanatRunner = dekanatRunner;
-
+    public void setMainApp() {
         // Add observable list data to the table
-        cathedraTable.setItems(dekanatRunner.getCathedraData());
-        departmentComboBox.setItems(dekanatRunner.getDepartmentData());
+        cathedraTable.setItems(DekanatRunner.getInstance().getCathedraData());
+        departmentComboBox.setItems(DekanatRunner.getInstance().getDepartmentData());
     }
-    public void actionButtonPressed(ActionEvent actionEvent ) {
+
+    public void actionButtonPressed(ActionEvent actionEvent) {
         Object sourse = actionEvent.getSource();
         if(!(sourse instanceof Button)){
             return;
         }
         Button clixkedButton = (Button) sourse;
-        Cathedra selectedCathedra=(Cathedra)cathedraTable.getSelectionModel().getSelectedItem();
+        Cathedra selectedCathedra=cathedraTable.getSelectionModel().getSelectedItem();
         Window parentWindow = ((Node) actionEvent.getSource()).getScene().getWindow();
         cathedraEditController.setCathedra(selectedCathedra);
         switch (clixkedButton.getId()){
             case "newCathedraBtn":
                 cathedraEditController.setCathedra(new Cathedra());
                 showDialog(parentWindow);
-                dekanatRunner.cathedraData.add(cathedraEditController.getCathedra());
+                DekanatRunner.getInstance().cathedraData.add(cathedraEditController.getCathedra());
                 break;
             case "editCathedraBtn":
-                cathedraEditController.setCathedra((Cathedra)cathedraTable.getSelectionModel().getSelectedItem());
+                cathedraEditController.setCathedra(cathedraTable.getSelectionModel().getSelectedItem());
                 showDialog(parentWindow);
                 break;
             case "deleteCathedraBtn":
-                dekanatRunner.cathedraData.remove((Cathedra)cathedraTable.getSelectionModel().getSelectedItem());
+                DekanatRunner.getInstance().cathedraData.remove( cathedraTable.getSelectionModel().getSelectedItem());
                 break;
         }
     }
+
     private void showDialog(Window window){
         if(editDialogStage==null){
             editDialogStage=new Stage();
@@ -173,9 +172,9 @@ public class CathedraListController {
     }
 
 
-    public void showProfessors(ActionEvent actionEvent ) {
-        if(cathedraTable.getSelectionModel().getSelectedItem()!=null){
-            dekanatRunner.loadProfessorStage(cathedraTable.getSelectionModel().getSelectedItem().getName().toString());
+    public void showProfessors(ActionEvent actionEvent) {
+        if (cathedraTable.getSelectionModel().getSelectedItem() != null) {
+            DekanatRunner.getInstance().loadProfessorStage(cathedraTable.getSelectionModel().getSelectedItem().getName());
         }
     }
 }
