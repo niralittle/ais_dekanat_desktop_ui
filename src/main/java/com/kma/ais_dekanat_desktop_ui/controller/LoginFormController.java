@@ -2,6 +2,7 @@ package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
 import com.kma.ais_dekanat_desktop_ui.model.User;
+import com.kma.ais_dekanat_desktop_ui.utils.Constants;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -9,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 public class LoginFormController {
 
-    private static final String REST_API_PATH = "http://localhost:8081";
     private static final String AUTH_API_PATH = "/auth";
     public TextField loginField;
     public PasswordField passwordField;
@@ -21,7 +21,7 @@ public class LoginFormController {
         String password = passwordField.getText();
         if (nonEmpty(login, password)) {
             RestTemplate restTemplate = new RestTemplate();
-            User user = restTemplate.getForObject(REST_API_PATH + AUTH_API_PATH +
+            User user = restTemplate.getForObject(Constants.REST_API_PATH + AUTH_API_PATH +
                     "?username=" + login + "&password=" + password, User.class);
             if (user != null) {
                 DekanatRunner.getInstance().postLogin(user);

@@ -3,6 +3,8 @@ package com.kma.ais_dekanat_desktop_ui.controller;
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
+import com.kma.ais_dekanat_desktop_ui.rest.CathedraService;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.stage.Window;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CathedraListController {
     @FXML
@@ -41,6 +44,7 @@ public class CathedraListController {
 
     @FXML
     private void initialize() {
+        departmentComboBox.setItems(FXCollections.observableArrayList(CathedraService.getAllDepartment()));
         comboBoxManage();
         cathedraTable.setRowFactory(tv -> {
             TableRow<Cathedra> row = new TableRow<>();
@@ -94,7 +98,10 @@ public class CathedraListController {
             Department selectedDepartment = departmentComboBox.getSelectionModel().getSelectedItem();
             System.out.println("ComboBox Action (selected: " + selectedDepartment.getName() + ")");
 
-            if (selectedDepartment.getName().equals("Факультет Інформатики")) {
+            if (selectedDepartment != null) {
+                List<Cathedra> cathedraList = CathedraService.getCathedraByDepartmentId(selectedDepartment.getDepartmentId());
+                cathedraTable.setItems(FXCollections.observableArrayList(cathedraList));
+
                 cathedraTable.getColumns().get(0).setVisible(false);
                 cathedraTable.getColumns().get(0).setVisible(true);
 
@@ -104,7 +111,7 @@ public class CathedraListController {
                 cathedraTable.getColumns().get(0).setVisible(false);
                 cathedraTable.getColumns().get(0).setVisible(true);
                 idColumn.setCellValueFactory(cellData -> null);
-               nameColumn.setCellValueFactory(cellData -> null);
+                nameColumn.setCellValueFactory(cellData -> null);
             }
         });
 
@@ -125,25 +132,16 @@ public class CathedraListController {
         ProfessorLabel.setText("" + cathedra.getCathedraId());
     }
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     */
-    public void setMainApp() {
-        // Add observable list data to the table
-        cathedraTable.setItems(DekanatRunner.getInstance().getCathedraData());
-        departmentComboBox.setItems(DekanatRunner.getInstance().getDepartmentData());
-    }
-
     public void actionButtonPressed(ActionEvent actionEvent) {
         Object sourse = actionEvent.getSource();
-        if(!(sourse instanceof Button)){
+        if (!(sourse instanceof Button)) {
             return;
         }
         Button clixkedButton = (Button) sourse;
-        Cathedra selectedCathedra=cathedraTable.getSelectionModel().getSelectedItem();
+        Cathedra selectedCathedra = cathedraTable.getSelectionModel().getSelectedItem();
         Window parentWindow = ((Node) actionEvent.getSource()).getScene().getWindow();
         cathedraEditController.setCathedra(selectedCathedra);
-        switch (clixkedButton.getId()){
+        switch (clixkedButton.getId()) {
             case "newCathedraBtn":
                 cathedraEditController.setCathedra(new Cathedra());
                 showDialog(parentWindow);
@@ -154,14 +152,16 @@ public class CathedraListController {
                 showDialog(parentWindow);
                 break;
             case "deleteCathedraBtn":
-                DekanatRunner.getInstance().cathedraData.remove( cathedraTable.getSelectionModel().getSelectedItem());
+               // CathedraService.removeDepartment(cathedraTable.getSelectionModel().getSelectedItem().getCathedraId());
+                DekanatRunner.getInstance().cathedraData.remove(cathedraTable.getSelectionModel().getSelectedItem());
+
                 break;
         }
     }
 
-    private void showDialog(Window window){
-        if(editDialogStage==null){
-            editDialogStage=new Stage();
+    private void showDialog(Window window) {
+        if (editDialogStage == null) {
+            editDialogStage = new Stage();
             editDialogStage.setTitle("Edit");
             editDialogStage.setResizable(false);
             editDialogStage.setScene(new Scene(fxmlEdit));

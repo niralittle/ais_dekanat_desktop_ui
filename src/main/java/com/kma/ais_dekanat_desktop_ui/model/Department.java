@@ -9,7 +9,6 @@ public class Department {
     private IntegerProperty departmentId;
     private StringProperty name;
     private StringProperty mainInfo;
-
     public Department() {
         this.departmentId = new SimpleIntegerProperty();
         this.name =new SimpleStringProperty();

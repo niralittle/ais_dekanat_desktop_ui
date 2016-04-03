@@ -67,7 +67,6 @@ public class DekanatRunner extends Application {
             FXMLLoader loader = newLoader("cathedraList.fxml");
             rootLayout.setCenter(loader.load());
             CathedraListController controller = loader.getController();
-            controller.setMainApp();
 
         } catch (IOException e) {
             e.printStackTrace();
