@@ -33,16 +33,6 @@ public class DepartmentController {
 
     @FXML
     private TextArea mainInfo;
-/*
-    @FXML
-    private TextField newDepartmentName;
-
-    @FXML
-    private TextArea newDepartmentMainInfo;
-
-    @FXML
-    private Button createDepartment;
-*/
 
     private DekanatRunner dekanatRunner;
 
@@ -63,11 +53,6 @@ public class DepartmentController {
             });
             return row;
         });
-/*
-        newDepartment.setOnMouseClicked(event -> {
-            newDepartment.getParent().get
-        });
-        */
     }
 
     private void showDepartmentDetails(Department department) {
@@ -81,9 +66,7 @@ public class DepartmentController {
         Department tempDepartment = new Department();
         boolean okClicked = dekanatRunner.showDepartmentEditDialog(tempDepartment);
         if (okClicked) {
-            //System.out.println(dekanatRunner.getDepartmentData().size());
             dekanatRunner.getDepartmentData().add(tempDepartment);
-            //System.out.println(dekanatRunner.getDepartmentData().size());
             refreshDepartmentTable();
             showDepartmentDetails(tempDepartment);
         }
@@ -101,21 +84,13 @@ public class DepartmentController {
 
         } else {
             // Nothing selected
-           /* Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Select department");
-            alert.setContentText("Please, select department to edit");*/
+            alert.setContentText("Please, select department to edit");
         }
     }
 
     private void refreshDepartmentTable() {
-        /*
-        int selectedIndex = departmentTable.getSelectionModel().getSelectedIndex();
-        departmentTable.setItems(null);
-        departmentTable.layout();
-        departmentTable.setItems(dekanatRunner.getDepartmentData());
-        // Must set the selected index again (see http://javafx-jira.kenai.com/browse/RT-26291)
-        departmentTable.getSelectionModel().select(selectedIndex);
-        */
         departmentTable.getColumns().get(0).setVisible(false);
         departmentTable.getColumns().get(0).setVisible(true);
     }
@@ -124,6 +99,5 @@ public class DepartmentController {
         this.dekanatRunner = dekanatRunner;
         // Add observable list data to the table
         departmentTable.setItems(dekanatRunner.getDepartmentData());
-        //departmentComboBox.setItems(dekanatRunner.getDepartmentData());
     }
 }

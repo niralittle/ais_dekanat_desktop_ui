@@ -19,6 +19,14 @@ public class Exam {
         examId = new SimpleIntegerProperty();
     }
 
+    public Exam(Integer examId, Room room, UniversityGroup group, Subject subject, LocalDate date) {
+        this.examId = new SimpleIntegerProperty(examId);
+        this.room = room;
+        this.group = group;
+        this.subject = subject;
+        this.date = date;
+    }
+
     public void setExamId(int examId) {
         this.examId.set(examId);
     }

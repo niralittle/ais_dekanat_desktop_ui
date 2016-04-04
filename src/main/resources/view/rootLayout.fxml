@@ -13,6 +13,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#openCathedras" text="Кафедри" />
                         <MenuItem mnemonicParsing="false" onAction="#openStudents" text="Студенти" />
                         <MenuItem mnemonicParsing="false" onAction="#openAddClass" text="Додати навчальний курс" />
+                        <MenuItem mnemonicParsing="false" onAction="#openExams" text="Екзамени" />
                         <MenuItem mnemonicParsing="false" onAction="#close" text="Вийти" />
                     </items>
                 </Menu>

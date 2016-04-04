@@ -1,6 +1,7 @@
 package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
+import com.kma.ais_dekanat_desktop_ui.model.Exam;
 import javafx.fxml.FXML;
 
 /**
@@ -30,6 +31,11 @@ public class MenuController {
     @FXML
     public void openAddClass() {
         DekanatRunner.getInstance().showAddClassForm();
+    }
+
+    @FXML
+    public void openExams() {
+        DekanatRunner.getInstance().loadExamStage();
     }
 
 }

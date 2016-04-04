@@ -15,6 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.acl.Group;
+import java.time.LocalDate;
 
 public class DekanatRunner extends Application {
     private Stage primaryStage;
@@ -22,6 +24,10 @@ public class DekanatRunner extends Application {
     public ObservableList<Professor> proffesorData;
     public ObservableList<Cathedra> cathedraData;
     private ObservableList<Department> departmentData;
+    private ObservableList<Exam> examData;
+    private ObservableList<UniversityGroup> groupData;
+    private ObservableList<Room> roomData;
+    private ObservableList<Subject> subjectData;
 
     private static User user;
     private static DekanatRunner instance;
@@ -147,6 +153,31 @@ public class DekanatRunner extends Application {
         }
     }
 
+    public boolean showAddExamDialog(Exam exam) {
+        try {
+            FXMLLoader loader = newLoader("examEditDialog.fxml");
+            AnchorPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit/Create exam");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            EditExamController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setExam(exam);
+
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void loadProfessorStage(String cathedraName){
         try {
             FXMLLoader loader = newLoader("professorLayout.fxml");
@@ -169,6 +200,22 @@ public class DekanatRunner extends Application {
             rootLayout.setCenter(departmentPane);
 
             DepartmentController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadExamStage() {
+        fillExamData();
+        try {
+            FXMLLoader loader = newLoader("examLayout.fxml");
+            AnchorPane departmentPane = loader.load();
+
+            rootLayout.setCenter(departmentPane);
+
+            ExamController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -215,6 +262,41 @@ public class DekanatRunner extends Application {
         return departmentData;
     }
 
+
+
+    public void fillExamData(){
+        if(departmentData == null)
+            fillDepartmentData();
+        fillGroupData();
+        fillRoomData();
+        fillSubjectData();
+        examData = FXCollections.observableArrayList();
+        examData.add(new Exam(1,roomData.get(0), groupData.get(0), subjectData.get(0), LocalDate.now()));
+        examData.add(new Exam(2,roomData.get(1), groupData.get(1), subjectData.get(1), LocalDate.now()));
+    }
+
+    private void fillSubjectData() {
+        subjectData  = FXCollections.observableArrayList();
+        subjectData.add(new Subject(1, FinalType.EXAM, "Путінологія"));
+        subjectData.add(new Subject(2, FinalType.EXAM, "Птахівництво"));
+    }
+
+    private void fillRoomData() {
+        roomData = FXCollections.observableArrayList();
+        roomData.add(new Room(1, "1-225"));
+        roomData.add(new Room(2, "2-666"));
+    }
+
+    private void fillGroupData() {
+        groupData = FXCollections.observableArrayList();
+        groupData.add(new UniversityGroup(1, getDepartmentData().get(0), 1, "ФІ-4"));
+        groupData.add(new UniversityGroup(2, getDepartmentData().get(0), 1, "ФІ-3"));
+    }
+
+    public ObservableList<Exam> getExamData() {
+        return examData;
+    }
+
     public ObservableList<String> getCourseData() {
         ObservableList<String> courseData = FXCollections.observableArrayList();
         courseData.add("1");
@@ -222,6 +304,18 @@ public class DekanatRunner extends Application {
         courseData.add("3");
         courseData.add("4");
         return courseData;
+    }
+
+    public ObservableList<UniversityGroup> getGroupData() {
+        return groupData;
+    }
+
+    public ObservableList<Room> getRoomData() {
+        return roomData;
+    }
+
+    public ObservableList<Subject> getSubjectData() {
+        return subjectData;
     }
 
     public void showAddClassForm() {

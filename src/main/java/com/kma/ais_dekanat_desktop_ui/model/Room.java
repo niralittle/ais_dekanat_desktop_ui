@@ -9,24 +9,24 @@ import javafx.beans.property.StringProperty;
  * Created by denysburlakov on 04.04.16.
  */
 public class Room {
-    private IntegerProperty departmentId;
+    private IntegerProperty roomId;
     private StringProperty name;
 
-    private Room(Integer departmentId, String name){
-        this.departmentId = new SimpleIntegerProperty(departmentId);
+    public Room(Integer roomId, String name){
+        this.roomId = new SimpleIntegerProperty(roomId);
         this.name = new SimpleStringProperty(name);
     }
 
-    public int getDepartmentId() {
-        return departmentId.get();
+    public int getRoomId() {
+        return roomId.get();
     }
 
-    public IntegerProperty departmentIdProperty() {
-        return departmentId;
+    public IntegerProperty roomIdProperty() {
+        return roomId;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId.set(departmentId);
+    public void setRoomId(int roomId) {
+        this.roomId.set(roomId);
     }
 
     public String getName() {
@@ -39,5 +39,9 @@ public class Room {
 
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public String toString(){
+        return getName();
     }
 }
