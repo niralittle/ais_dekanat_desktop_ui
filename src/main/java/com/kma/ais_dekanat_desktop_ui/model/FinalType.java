@@ -1,7 +1,10 @@
 package com.kma.ais_dekanat_desktop_ui.model;
 
+import java.io.Serializable;
+
 /**
- * Created by denysburlakov on 04.04.16.
+ * Created by denysburlakov on 07.02.16.
  */
-public class FinalType {
+public enum FinalType implements Serializable {
+    EXAM, CREDIT
 }
