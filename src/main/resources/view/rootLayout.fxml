@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kma.ais_dekanat_desktop_ui.controller.MenuController">
+<BorderPane prefHeight="661.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kma.ais_dekanat_desktop_ui.controller.MenuController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
@@ -18,12 +18,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#openExamsByProfessor" text="Екзамени за викладачем" />
                         <MenuItem mnemonicParsing="false" onAction="#close" text="Вийти" />
                     </items>
-                </Menu>
-                <!--<Menu mnemonicParsing="false" text="Help">-->
-                    <!--<items>-->
-                        <!--<MenuItem mnemonicParsing="false" text="About" />-->
-                    <!--</items>-->
-                <!--</Menu>-->
+                </Menu> 
             </menus>
         </MenuBar>
     </top>
