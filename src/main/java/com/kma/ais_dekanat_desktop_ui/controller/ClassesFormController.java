@@ -85,34 +85,9 @@ public class ClassesFormController {
 
             @Override
             public Professor fromString(String string) {
-                return null;
-            }
-        });
-
-        professorBox.setCellFactory((comboBox) -> new ListCell<Professor>() {
-            @Override
-            protected void updateItem(Professor item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setText(null);
-                } else {
-                    setText(item.getProfessorName());
-                }
-            }
-        });
-        professorBox.setConverter(new StringConverter<Professor>() {
-            @Override
-            public String toString(Professor professor) {
-                if (professor == null) {
-                    return null;
-                } else {
-                    return professor.getProfessorName();
-                }
-            }
-
-            @Override
-            public Professor fromString(String string) {
-                return null;
+                Professor professor = new Professor();
+                professor.setProfessorDegree(string);
+                return professor;
             }
         });
 
