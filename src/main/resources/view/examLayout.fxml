@@ -42,6 +42,7 @@
                         <Label fx:id="dateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
+                        <Button fx:id="newExam" layoutX="194.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleNewExam" text="New..." />
                         <Button fx:id="editExam" layoutX="190.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleEditExam" text="Редагувати" />
                         <Button fx:id="deleteExam" layoutX="325.0" layoutY="432.0" mnemonicParsing="false" text="Видалити" />
                   <Label layoutX="190.0" layoutY="25.0" prefHeight="25.0" prefWidth="250.0" text="Деталі">
