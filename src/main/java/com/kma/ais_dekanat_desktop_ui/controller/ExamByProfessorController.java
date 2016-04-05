@@ -1,11 +1,11 @@
 package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
-import com.kma.ais_dekanat_desktop_ui.model.Exam;
+import com.kma.ais_dekanat_desktop_ui.model.FinalTest;
 import com.kma.ais_dekanat_desktop_ui.model.Professor;
+import com.kma.ais_dekanat_desktop_ui.rest.ProfessorService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
@@ -16,47 +16,43 @@ import java.time.LocalDate;
 
 public class ExamByProfessorController {
     @FXML
-    private TableView<Exam> examTable;
+    private TableView<FinalTest> examTable;
     @FXML
-    private TableColumn<Exam, String> subjectColumn;
+    private TableColumn<FinalTest, String> subjectColumn;
     @FXML
-    private TableColumn<Exam, String> roomColumn;
+    private TableColumn<FinalTest, String> roomColumn;
     @FXML
-    private TableColumn<Exam, LocalDate> dateColumn;
+    private TableColumn<FinalTest, LocalDate> dateColumn;
 
     @FXML
-    private ComboBox<Professor> courseComboBox;
+    private ComboBox<Professor> professorComboBox;
 
-    private Parent fxmlEdit;
-    private FXMLLoader fxmlLoader = new FXMLLoader();
-    private DekanatRunner dekanatRunner;
+    ProfessorService professorService = new ProfessorService();
 
     public ExamByProfessorController() {
     }
 
     @FXML
     private void initialize() {
-        //  courseComboBox.setItems(FXCollections.observableArrayList(CathedraService.getAllDepartment()));
+        professorComboBox.setItems(FXCollections.observableArrayList(professorService.getAll()));
         comboBoxManage();
     }
 
 
     private void comboBoxManage() {
-        courseComboBox.setCellFactory((comboBox) -> {
-            return new ListCell<Professor>() {
-                @Override
-                protected void updateItem(Professor item, boolean empty) {
-                    super.updateItem(item, empty);
+        professorComboBox.setCellFactory((comboBox) -> new ListCell<Professor>() {
+            @Override
+            protected void updateItem(Professor item, boolean empty) {
+                super.updateItem(item, empty);
 
-                    if (item == null || empty) {
-                        setText(null);
-                    } else {
-                        setText(item.getProfessorName());
-                    }
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.getProfessorName());
                 }
-            };
+            }
         });
-        courseComboBox.setConverter(new StringConverter<Professor>() {
+        professorComboBox.setConverter(new StringConverter<Professor>() {
             @Override
             public String toString(Professor professor) {
                 if (professor == null) {
@@ -73,11 +69,11 @@ public class ExamByProfessorController {
 
 
         });
-        courseComboBox.setOnAction((event) -> {
-            Professor selectedDepartment = courseComboBox.getSelectionModel().getSelectedItem();
-            System.out.println("ComboBox Action (selected: " + selectedDepartment.getProfessorId() + ")");
+        professorComboBox.setOnAction((event) -> {
+            Professor selectedProfessor = professorComboBox.getSelectionModel().getSelectedItem();
+            System.out.println("ComboBox Action: selected professor with name " + selectedProfessor.getProfessorName());
 
-            if (selectedDepartment.getProfessorId()== 1) {
+            if (selectedProfessor.getProfessorId() == 1) {
 
 
                 examTable.getColumns().get(0).setVisible(false);
@@ -98,9 +94,8 @@ public class ExamByProfessorController {
 
 
     public void setMainApp(DekanatRunner dekanatRunner) {
-        this.dekanatRunner = dekanatRunner;
         // Add observable list data to the table
-        courseComboBox.setItems(dekanatRunner.getProfessorData());
+        professorComboBox.setItems(dekanatRunner.getProfessorData());
         examTable.setItems(dekanatRunner.getExamData());
     }
 }

@@ -5,12 +5,12 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 
 public class Student {
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty street;
-    private final IntegerProperty postalCode;
-    private final StringProperty city;
-    private final ObjectProperty<LocalDate> birthday;
+    private StringProperty firstName = new SimpleStringProperty();
+    private StringProperty lastName = new SimpleStringProperty();
+    private StringProperty street = new SimpleStringProperty();
+    private IntegerProperty postalCode = new SimpleIntegerProperty();
+    private StringProperty city = new SimpleStringProperty();
+    private ObjectProperty<LocalDate> birthday = new SimpleObjectProperty<>();
 
 
     public Student() {

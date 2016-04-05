@@ -1,7 +1,7 @@
 package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
-import com.kma.ais_dekanat_desktop_ui.model.Exam;
+import com.kma.ais_dekanat_desktop_ui.model.FinalTest;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
@@ -11,13 +11,13 @@ import javafx.scene.input.MouseButton;
  */
 public class ExamController {
     @FXML
-    private TableView<Exam> examTable;
+    private TableView<FinalTest> examTable;
 
     @FXML
-    private TableColumn<Exam, Integer> idColumn;
+    private TableColumn<FinalTest, Integer> idColumn;
 
     @FXML
-    private TableColumn<Exam, String> subjectNameColumn;
+    private TableColumn<FinalTest, String> subjectNameColumn;
 
     @FXML
     private Button newExam;
@@ -47,33 +47,33 @@ public class ExamController {
         idColumn.setCellValueFactory(cellData -> cellData.getValue().examIdProperty().asObject());
         subjectNameColumn.setCellValueFactory(cellData -> cellData.getValue().getSubject().nameProperty());
         examTable.setRowFactory(tv -> {
-            TableRow<Exam> row = new TableRow<>();
+            TableRow<FinalTest> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
 
-                    Exam clickedRow = row.getItem();
+                    FinalTest clickedRow = row.getItem();
                     subjectNameLabel.setText(clickedRow.getSubject().getName());
                     groupNameLabel.setText(clickedRow.getGroup().getName());
                     roomNameLabel.setText(clickedRow.getRoom().getName());
-                    dateLabel.setText(clickedRow.getDate().toString());
+                    dateLabel.setText(clickedRow.getTime().toString());
                 }
             });
             return row;
         });
     }
 
-    private void showExamDetails(Exam exam) {
+    private void showExamDetails(FinalTest exam) {
         examTable.getSelectionModel().select(exam);
         subjectNameLabel.setText(exam.getSubject().getName());
         groupNameLabel.setText(exam.getGroup().getName());
         roomNameLabel.setText(exam.getRoom().getName());
-        dateLabel.setText(exam.getDate().toString());
+        dateLabel.setText(exam.getTime().toString());
     }
 
     @FXML
     private void handleNewExam() {
-        Exam tempExam = new Exam();
+        FinalTest tempExam = new FinalTest();
         boolean okClicked = dekanatRunner.showAddExamDialog(tempExam);
         if (okClicked) {
             dekanatRunner.getExamData().add(tempExam);
@@ -84,7 +84,7 @@ public class ExamController {
 
     @FXML
     private void handleEditExam() {
-        Exam selectedExam = examTable.getSelectionModel().getSelectedItem();
+        FinalTest selectedExam = examTable.getSelectionModel().getSelectedItem();
         if (selectedExam != null) {
             boolean okClicked = dekanatRunner.showAddExamDialog(selectedExam);
             if (okClicked) {

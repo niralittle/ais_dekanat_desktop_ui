@@ -9,15 +9,17 @@ import javafx.beans.property.StringProperty;
  * Created by denysburlakov on 04.04.16.
  */
 public class Subject {
-    private IntegerProperty subjectId;
+    private IntegerProperty subjectId = new SimpleIntegerProperty(0);
     private FinalType finalType;
-    private StringProperty name;
+    private StringProperty name = new SimpleStringProperty("");
 
     public Subject(Integer subjectId, FinalType finalType, String name){
         this.subjectId = new SimpleIntegerProperty(subjectId);
         this.finalType = finalType;
         this.name = new SimpleStringProperty(name);
     }
+
+    public Subject() {}
 
     public int getSubjectId() {
         return subjectId.get();

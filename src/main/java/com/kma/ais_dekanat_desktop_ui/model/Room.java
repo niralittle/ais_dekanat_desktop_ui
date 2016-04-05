@@ -9,13 +9,15 @@ import javafx.beans.property.StringProperty;
  * Created by denysburlakov on 04.04.16.
  */
 public class Room {
-    private IntegerProperty roomId;
-    private StringProperty name;
+    private IntegerProperty roomId = new SimpleIntegerProperty();
+    private StringProperty name = new SimpleStringProperty();
 
     public Room(Integer roomId, String name){
         this.roomId = new SimpleIntegerProperty(roomId);
         this.name = new SimpleStringProperty(name);
     }
+
+    public Room() {}
 
     public int getRoomId() {
         return roomId.get();

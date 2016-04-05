@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.sql.Date;
+
 /**
  * Created by denysburlakov on 04.04.16.
  */
@@ -25,7 +27,7 @@ public class EditExamController {
     private DatePicker date;
 
     private Stage dialogStage;
-    private Exam exam;
+    private FinalTest exam;
     private boolean okClicked = false;
 
     /**
@@ -50,7 +52,7 @@ public class EditExamController {
      *
      * @param exam
      */
-    public void setExam(Exam exam) {
+    public void setExam(FinalTest exam) {
         this.exam = exam;
         subjectName.setItems(DekanatRunner.getInstance().getSubjectData());
         subjectName.getSelectionModel().select(exam.getSubject());
@@ -58,7 +60,7 @@ public class EditExamController {
         groupName.getSelectionModel().select(exam.getGroup());
         roomName.setItems(DekanatRunner.getInstance().getRoomData());
         roomName.getSelectionModel().select(exam.getRoom());
-        date.setValue(exam.getDate());
+        date.setValue(exam.getTime().toLocalDate());
     }
 
     /**
@@ -78,7 +80,7 @@ public class EditExamController {
             exam.setSubject(subjectName.getValue());
             exam.setGroup(groupName.getValue());
             exam.setRoom(roomName.getValue());
-            exam.setDate(date.getValue());
+            exam.setTime(new Date(date.getValue().toEpochDay()));
             okClicked = true;
             dialogStage.close();
         }

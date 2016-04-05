@@ -5,29 +5,23 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Set;
+
 public class UniversityGroup {
-    private IntegerProperty groupId;
+    private Integer groupId;
     private Department department;
-    private IntegerProperty course;
-    private StringProperty name;
+    private Integer course;
+    private String name;
+    private Set<Student> students;
+    private Set<FinalTest> finals;
+    private Set<Syllabus> syllabuses;
 
-    public UniversityGroup(Integer groupId, Department department, Integer course, String name){
-        this.groupId = new SimpleIntegerProperty(groupId);
-        this.department = department;
-        this.course = new SimpleIntegerProperty(course);
-        this.name = new SimpleStringProperty(name);
-    }
-
-    public int getGroupId() {
-        return groupId.get();
-    }
-
-    public IntegerProperty groupIdProperty() {
+    public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId.set(groupId);
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     public Department getDepartment() {
@@ -38,31 +32,43 @@ public class UniversityGroup {
         this.department = department;
     }
 
-    public int getCourse() {
-        return course.get();
-    }
-
-    public IntegerProperty courseProperty() {
+    public Integer getCourse() {
         return course;
     }
 
-    public void setCourse(int course) {
-        this.course.set(course);
+    public void setCourse(Integer course) {
+        this.course = course;
     }
 
     public String getName() {
-        return name.get();
-    }
-
-    public StringProperty nameProperty() {
         return name;
     }
 
     public void setName(String name) {
-        this.name.set(name);
+        this.name = name;
     }
 
-    public String toString(){
-        return getName();
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
+    public Set<FinalTest> getFinals() {
+        return finals;
+    }
+
+    public void setFinals(Set<FinalTest> finals) {
+        this.finals = finals;
+    }
+
+    public Set<Syllabus> getSyllabuses() {
+        return syllabuses;
+    }
+
+    public void setSyllabuses(Set<Syllabus> syllabuses) {
+        this.syllabuses = syllabuses;
     }
 }

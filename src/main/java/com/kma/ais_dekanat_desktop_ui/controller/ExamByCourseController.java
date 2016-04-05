@@ -1,7 +1,7 @@
 package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
-import com.kma.ais_dekanat_desktop_ui.model.Exam;
+import com.kma.ais_dekanat_desktop_ui.model.FinalTest;
 import com.kma.ais_dekanat_desktop_ui.model.UniversityGroup;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,13 +16,13 @@ import java.time.LocalDate;
 
 public class ExamByCourseController {
     @FXML
-    private TableView<Exam> examTable;
+    private TableView<FinalTest> examTable;
     @FXML
-    private TableColumn<Exam, String> subjectColumn;
+    private TableColumn<FinalTest, String> subjectColumn;
     @FXML
-    private TableColumn<Exam, String> roomColumn;
+    private TableColumn<FinalTest, String> roomColumn;
     @FXML
-    private TableColumn<Exam, LocalDate> dateColumn;
+    private TableColumn<FinalTest, LocalDate> dateColumn;
 
     @FXML
     private ComboBox<UniversityGroup> courseComboBox;

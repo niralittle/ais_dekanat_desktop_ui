@@ -4,6 +4,7 @@ import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
 import com.kma.ais_dekanat_desktop_ui.rest.CathedraService;
+import com.kma.ais_dekanat_desktop_ui.rest.DepartmentService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +45,8 @@ public class CathedraListController {
 
     @FXML
     private void initialize() {
-//       departmentComboBox.setItems(FXCollections.observableArrayList(CathedraService.getAllDepartment()));
+        departmentComboBox.setItems(FXCollections.observableArrayList(DepartmentService.getAll()));
+        System.out.println("How many departments loaded: " + departmentComboBox.getItems().size());
         comboBoxManage();
         cathedraTable.setRowFactory(tv -> {
             TableRow<Cathedra> row = new TableRow<>();

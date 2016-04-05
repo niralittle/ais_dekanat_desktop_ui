@@ -2,6 +2,7 @@ package com.kma.ais_dekanat_desktop_ui;
 
 import com.kma.ais_dekanat_desktop_ui.controller.*;
 import com.kma.ais_dekanat_desktop_ui.model.*;
+import com.kma.ais_dekanat_desktop_ui.rest.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,15 +16,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class DekanatRunner extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     public ObservableList<Professor> proffesorData;
     public ObservableList<Cathedra> cathedraData;
-    private ObservableList<Department> departmentData;
-    private ObservableList<Exam> examData;
+    private ObservableList<Department> departmentData = FXCollections.observableArrayList(DepartmentService.getAll());
+    private ObservableList<FinalTest> examData;
     private ObservableList<UniversityGroup> groupData;
     private ObservableList<Room> roomData;
     private ObservableList<Subject> subjectData;
@@ -76,6 +76,13 @@ public class DekanatRunner extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void fillDepartmentData() {
+        System.out.println("fill was called");
+        //departmentData = FXCollections.observableArrayList(DepartmentService.getAll());
+
+        System.out.println("new size is: " + departmentData.size());
     }
 
     public void promptLoginForm() {
@@ -152,7 +159,7 @@ public class DekanatRunner extends Application {
         }
     }
 
-    public boolean showAddExamDialog(Exam exam) {
+    public boolean showAddExamDialog(FinalTest exam) {
         try {
             FXMLLoader loader = newLoader("examEditDialog.fxml");
             AnchorPane page = loader.load();
@@ -188,7 +195,9 @@ public class DekanatRunner extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } public void loadExamByProfessorStage() {
+    }
+
+    public void loadExamByProfessorStage() {
         fillExamData();
         try {
             FXMLLoader loader = newLoader("examByProfessor.fxml");
@@ -252,55 +261,30 @@ public class DekanatRunner extends Application {
     }
 
 
-    public ObservableList<Cathedra> getCathedraData() {
-        ObservableList<Cathedra> cathedraData = FXCollections.observableArrayList();
-        cathedraData.add(new Cathedra(1, "Кафедра математики"));
-        cathedraData.add(new Cathedra(2, "Кафедра мультимедійних систем"));
-        return cathedraData;
-    }
+  public ObservableList<Cathedra> getCathedraData() {
+    return FXCollections.observableArrayList(CathedraService.getAll());
+  }
 
     public ObservableList<Student> getStudentData() {
-        ObservableList<Student> studentData = FXCollections.observableArrayList();
-        studentData.add(new Student("Hans", "Muster"));
-        studentData.add(new Student("Ruth", "Mueller"));
-        studentData.add(new Student("Heinz", "Kurz"));
-        studentData.add(new Student("Cornelia", "Meier"));
-        studentData.add(new Student("Werner", "Meyer"));
-        studentData.add(new Student("Lydia", "Kunz"));
-        studentData.add(new Student("Anna", "Best"));
-        studentData.add(new Student("Stefan", "Meier"));
-        studentData.add(new Student("Martin", "Mueller"));
-        return studentData;
+        return FXCollections.observableArrayList(StudentService.getAll());
     }
 
     public ObservableList<Professor> getProfessorData() {
-        proffesorData = FXCollections.observableArrayList();
-        proffesorData.add(new Professor(1,"Jon","lector",1));
-        proffesorData.add(new Professor(2, "Ivan", "lector",1));
-        proffesorData.add(new Professor(2, "Maria", "teacher",1));
-        return proffesorData;
-    }
-    public void fillDepartmentData(){
-        departmentData = FXCollections.observableArrayList();
-        departmentData.add(new Department(1, "Факультет Інформатики", "IT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITITIT IT IT IT ITv IT ITITITITITIT"));
-        departmentData.add(new Department(2, "Факультет Гуманітарних наук", "УГ"));
+        return FXCollections.observableArrayList(ProfessorService.getAll());
     }
 
     public ObservableList<Department> getDepartmentData() {
-        return departmentData;
+        return FXCollections.observableArrayList(DepartmentService.getAll());
     }
 
-
-
     public void fillExamData(){
-        if(departmentData == null)
-            fillDepartmentData();
+        if (departmentData == null) fillDepartmentData();
         fillGroupData();
         fillRoomData();
         fillSubjectData();
-        examData = FXCollections.observableArrayList();
-        examData.add(new Exam(1,roomData.get(0), groupData.get(0), subjectData.get(0), LocalDate.now()));
-        examData.add(new Exam(2,roomData.get(1), groupData.get(1), subjectData.get(1), LocalDate.now()));
+        examData = FXCollections.observableArrayList(ExamService.getAll());
+//        examData.add(new FinalTest(1,roomData.get(0), groupData.get(0), subjectData.get(0), LocalDate.now()));
+//        examData.add(new FinalTest(2,roomData.get(1), groupData.get(1), subjectData.get(1), LocalDate.now()));
     }
 
     private void fillSubjectData() {
@@ -316,12 +300,12 @@ public class DekanatRunner extends Application {
     }
 
     private void fillGroupData() {
-        groupData = FXCollections.observableArrayList();
-        groupData.add(new UniversityGroup(1, getDepartmentData().get(0), 1, "ФІ-4"));
-        groupData.add(new UniversityGroup(2, getDepartmentData().get(0), 1, "ФІ-3"));
+        groupData = FXCollections.observableArrayList(GroupService.getAll());
+//        groupData.add(new UniversityGroup(1, getDepartmentData().get(0), 1, "ФІ-4"));
+//        groupData.add(new UniversityGroup(2, getDepartmentData().get(0), 1, "ФІ-3"));
     }
 
-    public ObservableList<Exam> getExamData() {
+    public ObservableList<FinalTest> getExamData() {
         return examData;
     }
 
@@ -335,7 +319,7 @@ public class DekanatRunner extends Application {
     }
 
     public ObservableList<UniversityGroup> getGroupData() {
-        return groupData;
+        return FXCollections.observableArrayList(GroupService.getAll());
     }
 
     public ObservableList<Room> getRoomData() {
@@ -351,7 +335,6 @@ public class DekanatRunner extends Application {
             FXMLLoader loader = newLoader("addClass.fxml");
             rootLayout.setCenter(loader.load());
             ClassesFormController controller = loader.getController();
-            controller.init();
         } catch (IOException e) {
             e.printStackTrace();
         }
