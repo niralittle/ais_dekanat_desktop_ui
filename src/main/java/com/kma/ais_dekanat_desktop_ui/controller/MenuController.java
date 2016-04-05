@@ -1,7 +1,7 @@
 package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
-import com.kma.ais_dekanat_desktop_ui.model.Exam;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 /**
@@ -37,5 +37,12 @@ public class MenuController {
     public void openExams() {
         DekanatRunner.getInstance().loadExamStage();
     }
+    @FXML
+    public void openExamsByCourse() {
+        DekanatRunner.getInstance().loadExamByCourseStage();
+    }
 
+    public void openExamsByProfessor(ActionEvent actionEvent) {
+        DekanatRunner.getInstance().loadExamByProfessorStage();
+    }
 }

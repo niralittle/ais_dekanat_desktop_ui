@@ -44,7 +44,7 @@ public class CathedraListController {
 
     @FXML
     private void initialize() {
-        departmentComboBox.setItems(FXCollections.observableArrayList(CathedraService.getAllDepartment()));
+//       departmentComboBox.setItems(FXCollections.observableArrayList(CathedraService.getAllDepartment()));
         comboBoxManage();
         cathedraTable.setRowFactory(tv -> {
             TableRow<Cathedra> row = new TableRow<>();
@@ -129,6 +129,7 @@ public class CathedraListController {
 
     public void setLabels(Cathedra cathedra) {
         NameLabel.setText(cathedra.getName());
+
         ProfessorLabel.setText("" + cathedra.getCathedraId());
     }
 
@@ -152,7 +153,7 @@ public class CathedraListController {
                 showDialog(parentWindow);
                 break;
             case "deleteCathedraBtn":
-               // CathedraService.removeDepartment(cathedraTable.getSelectionModel().getSelectedItem().getCathedraId());
+                CathedraService.removeDepartment(cathedraTable.getSelectionModel().getSelectedItem().getCathedraId());
                 DekanatRunner.getInstance().cathedraData.remove(cathedraTable.getSelectionModel().getSelectedItem());
 
                 break;

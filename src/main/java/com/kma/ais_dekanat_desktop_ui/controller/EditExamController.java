@@ -105,9 +105,9 @@ public class EditExamController {
             return true;
         } else {
             // Show the error message
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Invalid Fields");
-            alert.setContentText(errorMessage);
+        //    Alert alert = new Alert(Alert.AlertType.ERROR);
+        //    alert.setHeaderText("Invalid Fields");
+       //     alert.setContentText(errorMessage);
             return false;
         }
     }

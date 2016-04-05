@@ -1,7 +1,6 @@
 package com.kma.ais_dekanat_desktop_ui.controller;
 
 import com.kma.ais_dekanat_desktop_ui.DekanatRunner;
-import com.kma.ais_dekanat_desktop_ui.model.Department;
 import com.kma.ais_dekanat_desktop_ui.model.Exam;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -95,9 +94,9 @@ public class ExamController {
 
         } else {
             // Nothing selected
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Select exam");
-            alert.setContentText("Please, select exam to edit");
+           // Alert alert = new Alert(Alert.AlertType.ERROR);
+           // alert.setHeaderText("Select exam");
+          //  alert.setContentText("Please, select exam to edit");
         }
     }
 

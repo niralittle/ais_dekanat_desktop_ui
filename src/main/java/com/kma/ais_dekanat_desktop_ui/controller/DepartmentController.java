@@ -84,9 +84,9 @@ public class DepartmentController {
 
         } else {
             // Nothing selected
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Select department");
-            alert.setContentText("Please, select department to edit");
+          //  Alert alert = new Alert(Alert.AlertType.ERROR);
+           // alert.setHeaderText("Select department");
+           // alert.setContentText("Please, select department to edit");
         }
     }
 

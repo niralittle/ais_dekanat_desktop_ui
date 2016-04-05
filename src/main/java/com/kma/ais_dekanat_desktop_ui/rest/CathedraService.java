@@ -2,6 +2,7 @@ package com.kma.ais_dekanat_desktop_ui.rest;
 
 import com.kma.ais_dekanat_desktop_ui.model.Cathedra;
 import com.kma.ais_dekanat_desktop_ui.model.Department;
+import com.kma.ais_dekanat_desktop_ui.model.Professor;
 import com.kma.ais_dekanat_desktop_ui.utils.Constants;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -31,5 +32,12 @@ public class CathedraService {
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id.toString());
         restTemplate.delete(Constants.REST_API_PATH+Constants.DELETE_DEPARTMENT+"/{id}", map);
+    }
+    public static Professor getProfessorById(Integer id){
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Professor> response = restTemplate.getForEntity(
+                Constants.REST_API_PATH + Constants.PROFESSOR_BY_ID + "?id=" + id, Professor.class);
+        Professor professor =response.getBody();
+        return professor;
     }
 }

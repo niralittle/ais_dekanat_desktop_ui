@@ -5,7 +5,6 @@ package com.kma.ais_dekanat_desktop_ui.controller;
  */
 import com.kma.ais_dekanat_desktop_ui.model.Department;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -93,9 +92,9 @@ public class EditDepartmentController {
                 return true;
             } else {
                 // Show the error message
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Invalid Fields");
-                alert.setContentText(errorMessage);
+               // Alert alert = new Alert(Alert.AlertType.ERROR);
+              //  alert.setHeaderText("Invalid Fields");
+              //  alert.setContentText(errorMessage);
                 return false;
             }
         }

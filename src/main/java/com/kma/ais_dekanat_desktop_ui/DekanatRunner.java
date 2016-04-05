@@ -15,7 +15,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.security.acl.Group;
 import java.time.LocalDate;
 
 public class DekanatRunner extends Application {
@@ -189,6 +188,20 @@ public class DekanatRunner extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    } public void loadExamByProfessorStage() {
+        fillExamData();
+        try {
+            FXMLLoader loader = newLoader("examByProfessor.fxml");
+            AnchorPane departmentPane = loader.load();
+
+            rootLayout.setCenter(departmentPane);
+
+            ExamByProfessorController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loadDepartmentStage() {
@@ -216,6 +229,21 @@ public class DekanatRunner extends Application {
             rootLayout.setCenter(departmentPane);
 
             ExamController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadExamByCourseStage() {
+        fillExamData();
+        try {
+            FXMLLoader loader = newLoader("examByCourse.fxml");
+            AnchorPane departmentPane = loader.load();
+
+            rootLayout.setCenter(departmentPane);
+
+            ExamByCourseController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
@@ -336,6 +364,8 @@ public class DekanatRunner extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
 
 }
 
