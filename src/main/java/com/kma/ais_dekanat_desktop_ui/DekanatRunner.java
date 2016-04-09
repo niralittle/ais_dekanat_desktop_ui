@@ -3,6 +3,7 @@ package com.kma.ais_dekanat_desktop_ui;
 import com.kma.ais_dekanat_desktop_ui.controller.*;
 import com.kma.ais_dekanat_desktop_ui.model.*;
 import com.kma.ais_dekanat_desktop_ui.rest.*;
+import com.kma.ais_dekanat_desktop_ui.utils.Constants;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class DekanatRunner extends Application {
     private Stage primaryStage;
@@ -345,6 +347,9 @@ public class DekanatRunner extends Application {
     }
 
     public static void main(String[] args) {
+        if (args.length > 0) {
+            Constants.setServerIp(args[0]);
+        }
         launch(args);
     }
 

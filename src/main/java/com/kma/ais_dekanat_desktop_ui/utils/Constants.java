@@ -2,7 +2,7 @@ package com.kma.ais_dekanat_desktop_ui.utils;
 
 public final class Constants  {
 
-    public static final String REST_API_PATH = "http://localhost:8081";
+    public static String REST_API_PATH = "http://localhost:8081";
 
     public static final String DEPARTMENT_LIST ="/cathedra/department";
     public static final String GET_CATHEDRAS_BY_DEPARTMENT ="/getCathedrasByDepartment";
@@ -16,4 +16,9 @@ public final class Constants  {
     public static final String GET_ALL_CATHEDRAS = "/getAllCathedras";
     public static final String GET_EXAMS_BY_PROFESSOR_ID = "/getExamsByProfessorId";
     public static final String GET_ALL_GROUPS = "/getAllGroups";
+
+    public static void setServerIp(String serverIp) {
+        REST_API_PATH = "http://" + serverIp + ":8081"; //the port is hardcoded, because reasons
+    }
+
 }
